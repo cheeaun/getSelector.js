@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Jasmine Test Runner</title>
+  <link rel="stylesheet" href="lib/jasmine-1.0.2/jasmine.css">
+  <script src="lib/jasmine-1.0.2/jasmine.js"></script>
+  <script src="lib/jasmine-1.0.2/jasmine-html.js"></script>
+
+  <!-- include source files here... -->
+  <script src="getSelector.js"></script>
+
+  <!-- include spec files here... -->
+  <script src="spec/getSelectorSpec.js"></script>
+
+</head>
+<body>
+
+<script>
+  jasmine.getEnv().addReporter(new jasmine.TrivialReporter());
+  jasmine.getEnv().execute();
+</script>
+
+</body>
+</html>
