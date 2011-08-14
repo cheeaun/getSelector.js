@@ -114,7 +114,7 @@ var getSelector = (function(d){
 							var a = d.createElement('a');
 							a.href = src;
 							var pathname = a.pathname;
-							delete a;
+							a = null;
 							return pathname;
 						})(src),
 						filename = (pathname.match(/\/([^\/]+\.[^\/\.]+)$/i) || [, ''])[1];
