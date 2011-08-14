@@ -4,7 +4,27 @@ var getSelector = (function(d){
 	
 	if (!d.querySelector) return function(){};
 	
-	var qsm = function(str, el){ // querySelector match
+	// https://github.com/mathiasbynens/mothereffingcssescapes
+	function cssEscape(str) {
+		var firstChar = str.charAt(0),
+		    result = '';
+		if (/^-+$/.test(str)){
+			return '\\-' + str.slice(1);
+		}
+		if (/\d/.test(firstChar)){
+			result = '\\3' + firstChar + ' ';
+			str = str.slice(1);
+		}
+		result += str.split('').map(function(chr){
+			if (/[\t\n\v\f]/.test(chr)){
+				return '\\' + chr.charCodeAt().toString(16) + ' ';
+			}
+			return (/[ !"#$%&'()*+,./:;<=>?@\[\\\]^_`{|}~]/.test(chr) ? '\\' : '') + chr;
+		}).join('');
+		return result;
+	}
+	
+	function qsm(str, el){ // querySelector match
 		return d.querySelector(str) === el;
 	};
 	
@@ -26,6 +46,7 @@ var getSelector = (function(d){
 			// Select the ID, which is supposed to be unique.
 			// If there are multiple elements with the same ID, only first will be selected.
 			if (id){
+				id = cssEscape(id);
 				var s = '#' + id + selector;
 				if (qsm(s, originalEl)) return s;
 				s = tagName + "[id='" + id + "']" + selector;
@@ -43,7 +64,7 @@ var getSelector = (function(d){
 						count = d.getElementsByClassName(c).length;
 					if (count < uniqueClassCount){
 						uniqueClassCount = count;
-						uniqueClass = c;
+						uniqueClass = cssEscape(c);
 					}
 				}
 				var s = tagName + '.' + uniqueClass + selector;

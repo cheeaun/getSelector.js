@@ -122,6 +122,21 @@ describe('getSelector', function(){
 			it: 'should get the label element with "for"',
 			selector: "label[for='test']",
 			html: '<label for="test" selectthis></label>'
+		},
+		{
+			it: 'should get the ID, escaped',
+			selector: "#\\#♥©\\{\\}“‘’”\\\'\\?\\@\\.\\:\\(\\)\\<\\>\\{\\}\\+-\\\\\\/\\[\\]\\_\\~",
+			html: '<div id="#♥©{}“‘’”\'?@.:()<>{}+-\\/[]_~" selectthis></div>'
+		},
+		{
+			it: 'should get the ID with tag name when there are multiple same IDs, escaped',
+			selector: "div[id='\\#♥©\\{\\}“‘’”\\\'\\?\\@\\.\\:\\(\\)\\<\\>\\{\\}\\+-\\\\\\/\\[\\]\\_\\~']",
+			html: '<p id="#♥©{}“‘’”\'?@.:()<>{}+-\\/[]_~"></p><div id="#♥©{}“‘’”\'?@.:()<>{}+-\\/[]_~" selectthis></div>'
+		},
+		{
+			it: 'should get the class, escaped',
+			selector: "div.\\#♥©\\{\\}“‘’”\\\'\\?\\@\\.\\:\\(\\)\\<\\>\\{\\}\\+-\\\\\\/\\[\\]\\_\\~",
+			html: '<div class="#♥©{}“‘’”\'?@.:()<>{}+-\\/[]_~" selectthis></div>'
 		}
 	];
 	
